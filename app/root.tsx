@@ -23,6 +23,11 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+// we can use synfusion enterprice ready components
+import { registerLicense } from "@syncfusion/ej2-base";
+// call registerlicense and get access to syncfusion variable
+registerLicense(import.meta.env.VITE_SYNCFUSION_LICENSE_KEY)
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
