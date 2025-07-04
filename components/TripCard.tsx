@@ -1,20 +1,64 @@
-import {Link, useLocation} from 'react-router';
+import {
+  ChipDirective,
+  ChipListComponent,
+  ChipsDirective,
+} from "@syncfusion/ej2-react-buttons";
+import { Link, useLocation } from "react-router";
+import { cn, getFirstWord } from "~/lib/utils";
 
-const TripCard = ({id, name, location, imageUrl, tags, price}: TripCardProps) => {
-
-    const path = useLocation();
+const TripCard = ({
+  id,
+  name,
+  location,
+  imageUrl,
+  tags,
+  price,
+}: TripCardProps) => {
+  const path = useLocation();
 
   return (
-    <Link to={path.pathname==='/' || path.pathname.startsWith('/travel') ? `/travel/${id}` : `/trips/${id}`} className='trip-card'>
-    <img src={imageUrl} alt={name}/>
-    <article>
+    <Link
+      to={
+        path.pathname === "/" || path.pathname.startsWith("/travel")
+          ? `/travel/${id}`
+          : `/trips/${id}`
+      }
+      className="trip-card"
+    >
+      <img src={imageUrl} alt={name} />
+      <article>
         <h2>{name}</h2>
         <figure>
-            <img src='/assets/icons/location-mark.svg' alt='location' className='size-4'/>
+          <img
+            src="/assets/icons/location-mark.svg"
+            alt="location"
+            className="size-4"
+          />
+          {/* instead of paragraph we'll use figure caption its better for screen readers and overall usability */}
+          <figcaption>{location}</figcaption>
         </figure>
-    </article>
+      </article>
+      <div className="mt-5 pl-[18px] pr-3.5 pb-5">
+        {/* syncfusion chip component */}
+        <ChipListComponent id="travel-chip">
+          <ChipDirective>
+            {tags.map((tag, index) => (
+              <ChipsDirective
+                key={index}
+                text={getFirstWord(tag)}
+                // ! to make sure styles apply
+                cssClass={cn(
+                  index === 1
+                    ? "!bg-pink-50 !text-pink-500"
+                    : "!bg-success-50 !text-success-700"
+                )}
+              />
+            ))}
+          </ChipDirective>
+        </ChipListComponent>
+      </div>
     </Link>
-  )
-}
+  );
+};
 
-export default TripCard
+export default TripCard;
