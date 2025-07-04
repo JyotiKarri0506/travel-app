@@ -5,6 +5,7 @@ import { type RouteConfig, layout, route } from "@react-router/dev/routes";
 // instead of index lets use 2 additional methods
 // route and location of the file in route(path, file)
 export default [
+  route('sign-in', 'routes/root/sign-in.tsx'),
   // its not a component but a method
   layout("routes/admin/admin-layout.tsx", [
     route("dashboard", "routes/admin/dashboard.tsx"),
